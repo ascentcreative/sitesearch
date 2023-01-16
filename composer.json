@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AscentCreative\\Geo\\": "src"
+      "AscentCreative\\SiteSearch\\": "src"
     }
   },
   "extra": {
