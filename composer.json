@@ -1,0 +1,29 @@
+{
+  "name": "ascentcreative/sitesearch",
+  "description": "Wrapper for YAB/Mysql Scout, allowing more indexing control",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Ascent Creative",
+      "email": "info@ascent-creative.co.uk"
+    }
+  ],
+  "require": {
+    "laravel/fortify": "^1.7",
+    "matthiasmullie/minify": "^1.3",
+    "kalnoy/nestedset": "^6.0",
+    "doctrine/dbal": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AscentCreative\\Geo\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+        "providers": [
+            "AscentCreative\\SiteSearch\\SiteSearchServiceProvider"
+        ]
+    }
+}
+}
