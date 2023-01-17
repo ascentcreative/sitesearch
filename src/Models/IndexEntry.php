@@ -43,7 +43,7 @@ class IndexEntry extends Model
             'indexable_type'=>get_class($model),
             'indexable_id'=>$model->id,
         ], [
-            'content'=>$model->buildIndexContent(),
+            'content'=>preg_replace('/\s+/', ' ', $model->buildIndexContent()),
         ]);
     }
 
