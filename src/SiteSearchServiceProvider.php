@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Routing\Router;
 
+use Laravel\Scout\EngineManager;
+use AscentCreative\SiteSearch\Engines\EloquentEngine;   
+
 class SiteSearchServiceProvider extends ServiceProvider
 {
   public function register()
@@ -13,7 +16,7 @@ class SiteSearchServiceProvider extends ServiceProvider
     //
    
     $this->mergeConfigFrom(
-        __DIR__.'/../config/sitesearch.php', 'geo'
+        __DIR__.'/../config/sitesearch.php', 'sitesearch'
     );
 
   }
@@ -21,12 +24,21 @@ class SiteSearchServiceProvider extends ServiceProvider
   public function boot()
   {
 
+    if ($this->app->runningInConsole()) {
+        $this->commands([
+            \AscentCreative\SiteSearch\Commands\IndexModel::class,
+        ]);
+    }
+
     $this->loadViewsFrom(__DIR__.'/../resources/views', 'sitesearch');
 
     $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
     $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
+    $this->app->make(EngineManager::class)->extend('eloquent', function () {
+        return new EloquentEngine();
+    });
     
   }
 

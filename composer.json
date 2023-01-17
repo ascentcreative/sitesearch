@@ -1,6 +1,6 @@
 {
   "name": "ascentcreative/sitesearch",
-  "description": "Wrapper for YAB/Mysql Scout, allowing more indexing control",
+  "description": "Eloquent-based MYSQL FullText Search engine with model indexing table",
   "type": "library",
   "authors": [
     {
