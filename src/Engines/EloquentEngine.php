@@ -33,6 +33,7 @@ class EloquentEngine extends Engine {
     }
 
     public function makeQuery(Builder $builder) {
+        
         $match = "MATCH (content) AGAINST (? IN NATURAL LANGUAGE MODE)";
 
         // we're only ever searching Index models

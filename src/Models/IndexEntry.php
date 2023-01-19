@@ -26,17 +26,6 @@ class IndexEntry extends Model
         return $this->morphTo();
     }
 
-    // public function getIndexableAttribute() {
-        
-    //     $eager = session()->get('sitesearch_eager');
-
-    //     if($eager && isset($eager[$this->indexable_type]) && isset($eager[$this->indexable_type][$this->indexable_id]) ) {
-    //         return $eager[$this->indexable_type][$this->indexable_id];
-    //     } 
-
-    //     return $this->indexable()->first();
-
-    // }
 
     public static function index($model) {
         IndexEntry::updateOrCreate([
