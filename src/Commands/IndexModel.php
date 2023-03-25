@@ -43,13 +43,18 @@ class IndexModel extends Command
 
         IndexEntry::where('indexable_type', $cls)->delete();
 
+        
         $models = $cls::setEagerLoads([])->paginate(2000);
         $page = 1;
+
+        $bar = $this->startBar($models->total(), "Indexing Models: " . $cls);
+
 
         while($models->hasMorePages()) {
 
             foreach($models as $model) {
                 IndexEntry::index($model);
+                $bar->advance();
             }
 
             $page++;
@@ -57,5 +62,18 @@ class IndexModel extends Command
 
         }
 
+        $bar->advance();
+
+    }
+
+
+    private function startBar($max, $message=null) {
+        $bar = $this->output->createProgressBar($max);
+        if($message) {
+            $bar->setFormat("%message%\n %current%/%max% [%bar%] %percent:3s%%");
+            $bar->setMessage($message);
+        }
+        $bar->start();
+        return $bar;
     }
 }
