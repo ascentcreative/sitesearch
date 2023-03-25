@@ -41,10 +41,20 @@ class IndexModel extends Command
 
         // TODO: Check that $cls uses the Indexable trait.
 
-        $models = $cls::all();
+        IndexEntry::where('indexable_type', $cls)->delete();
 
-        foreach($models as $model) {
-            IndexEntry::index($model);
+        $models = $cls::setEagerLoads([])->paginate(2000);
+        $page = 1;
+
+        while($models->hasMorePages()) {
+
+            foreach($models as $model) {
+                IndexEntry::index($model);
+            }
+
+            $page++;
+            $models = $cls::setEagerLoads([])->paginate(2000, ['*'], 'page', $page);
+
         }
 
     }
