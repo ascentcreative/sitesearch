@@ -74,4 +74,10 @@ trait Indexable {
         return $this->morphOne(IndexEntry::class, 'indexable');
     }
 
+    public function scopeFulltextSearch($q, $query) {
+        $q->whereHas('indexentry', function($q) use ($query) {
+            $q->fulltextSearch($query);
+        });
+    }
+
 }

@@ -36,5 +36,10 @@ class IndexEntry extends Model
         ]);
     }
 
+    public function scopeFulltextSearch($q, $query) {
+        $match = "MATCH (content) AGAINST (? IN NATURAL LANGUAGE MODE)";
+        $q->whereRaw($match, $query);
+    }
+
 }
 
