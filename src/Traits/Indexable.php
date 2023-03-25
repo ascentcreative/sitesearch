@@ -75,9 +75,13 @@ trait Indexable {
     }
 
     public function scopeFulltextSearch($q, $query) {
-        $q->whereHas('indexentry', function($q) use ($query) {
-            $q->fulltextSearch($query);
-        });
+
+        // much more efficient to do an id lookup once than repeated 'whereHas' (exists subquery)
+        $q->whereIn('id', IndexEntry::select('indexable_id')
+                                    ->where('indexable_type', get_class($this))
+                                    ->fulltextSearch($query)
+                    );
+
     }
 
 }
