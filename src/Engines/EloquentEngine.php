@@ -79,10 +79,10 @@ class EloquentEngine extends Engine {
      * @return mixed
      */
     public function paginate(Builder $builder, $perPage, $page) {
-        dd('TODO: Paginate method');
+        // dd('TODO: Paginate method');
         // $builder->limit = $perPage;
         // $builder->offset = ($perPage * $page) - $perPage;
-
+        return $this->makeQuery($builder)->paginate($perPage, $page);
         // // return $this->search($builder); //->paginate($perPage, $page);
         // return $this->makeQuery($builder)->paginate($perPage, $page);
     }

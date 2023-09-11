@@ -49,8 +49,8 @@ class IndexModel extends Command
 
         $bar = $this->startBar($models->total(), "Indexing Models: " . $cls);
 
-
-        while($models->hasMorePages()) {
+        while($models->count() > 0) { 
+            // hasMorePages()) {
 
             foreach($models as $model) {
                 IndexEntry::index($model);

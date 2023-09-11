@@ -2,7 +2,9 @@
 
 Route::middleware('web')->group(function() {
 
-    Route::get('/search', [\AscentCreative\SiteSearch\Controllers\SearchController::class, 'search'])->name('sitesearch');
+    if(config('sitesearch.useroutes')) {
+        Route::get('/search', [\AscentCreative\SiteSearch\Controllers\SearchController::class, 'search'])->name('sitesearch');
+    }
 
 });
 
