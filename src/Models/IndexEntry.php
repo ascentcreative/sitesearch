@@ -15,7 +15,7 @@ class IndexEntry extends Model
 
     public $with = ['indexable'];
 
-    public $fillable = ['indexable_type', 'indexable_id', 'content'];
+    public $fillable = ['indexable_type', 'indexable_id', 'content', 'indexable_created_at', 'indexable_updated_at'];
 
     
     public function toSearchableArray(){
@@ -33,6 +33,8 @@ class IndexEntry extends Model
             'indexable_id'=>$model->id,
         ], [
             'content'=>preg_replace('/\s+/', ' ', $model->buildIndexContent()),
+            'indexable_created_at'=>$model->created_at,
+            'indexable_updated_at'=>$model->updated_at
         ]);
     }
 

@@ -44,6 +44,10 @@ class EloquentEngine extends Engine {
                             // whereNotNull('content')
                             ->whereRaw($match, $builder->query)
                             ->with('indexable');
+
+        foreach($builder->orders as $order) {
+            $query->orderBy($order['column'], $order['direction']);
+        }
                             // ->where(DB::Raw("MATCH (content) AGAINST (? IN NATURAL LANGUAGE MODE)"), '>', 0.1)
                             // ->orderBy('score');
 
@@ -65,7 +69,7 @@ class EloquentEngine extends Engine {
 
         // dump(IndexEntry::query());
 
-        return $this->makeQuery($builder)->get();
+        return $this->makeQuery($builder); //->get();
 
 
     }
