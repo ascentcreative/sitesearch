@@ -18,6 +18,8 @@ class SearchController extends Controller
 
         $query = request()->query('query');
 
+        headTitle()->add('"' . $query . '"');
+
         $hits = IndexEntry::search($query)->get();
 
         // return view('sitesearch::results', ['results'=>$hits]);
