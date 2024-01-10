@@ -120,11 +120,18 @@ class EloquentEngine extends Engine {
 
         // TODO: Figure out why the eager-loaded models aren't used here!
         $matches = $results->map(function($result) {
-            $match = $result->indexable;
-            $match->sitesearch_score = $result->score;
-            return $match;
+            if($idxable = $result->indexable) {
+                $match = $idxable;
+                $match->sitesearch_score = $result->score;
+                return $match;
+            } else {
+                return null;
+            }
         });
-        return $matches;
+
+        // dd($matches->filter());
+        // remove any null items
+        return $matches->filter();
 
     }
 

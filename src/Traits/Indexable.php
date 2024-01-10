@@ -84,4 +84,15 @@ trait Indexable {
 
     }
 
+    
+    public function scopeSitesearchApply($q) {
+
+        if(method_exists($this, 'scopeSitesearch')) {
+            $q->sitesearch();
+        } else {
+            echo 'not applied';
+        }
+
+    }
+
 }

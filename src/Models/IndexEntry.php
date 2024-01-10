@@ -23,7 +23,9 @@ class IndexEntry extends Model
     }
 
     public function indexable() {
-        return $this->morphTo();
+        return $this->morphTo()
+                    // applies the sitesearch() scope on the indexable, if it has been defined
+                    ->sitesearchApply(); 
     }
 
 
