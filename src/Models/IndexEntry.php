@@ -42,7 +42,9 @@ class IndexEntry extends Model
 
     public function scopeFulltextSearch($q, $query) {
         $match = "MATCH (content) AGAINST (? IN NATURAL LANGUAGE MODE)";
+        // $match = "MATCH (content) AGAINST (? WITH QUERY EXPANSION)";
         $q->whereRaw($match, $query);
+        // $q->whereFulltext('content', $query);
     }
 
 }
