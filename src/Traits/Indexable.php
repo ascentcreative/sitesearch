@@ -77,7 +77,7 @@ trait Indexable {
     public function scopeFulltextSearch($q, $query) {
 
         // much more efficient to do an id lookup once than repeated 'whereHas' (exists subquery)
-        $q->whereIn('id', IndexEntry::select('indexable_id')
+        $q->whereIn($this->table . '.id', IndexEntry::select('indexable_id')
                                     ->where('indexable_type', get_class($this))
                                     ->fulltextSearch($query)
                     );
@@ -90,7 +90,7 @@ trait Indexable {
         if(method_exists($this, 'scopeSitesearch')) {
             $q->sitesearch();
         } else {
-            echo 'not applied';
+            // echo 'not applied';
         }
 
     }
